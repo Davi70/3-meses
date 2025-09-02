@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Sorpresa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+      background: url('fondo-montanas.jpg') no-repeat center center/cover;
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
+
+    /* Texto principal */
+    .texto-box {
+      background: rgba(0, 0, 0, 0.5);
+      padding: 20px;
+      margin: 20px auto;
+      border-radius: 15px;
+      max-width: 800px;
+    }
+
+    h1 {
+      font-family: 'Great Vibes', cursive;
+      font-size: 3em;
+      color: #ff4da6;
+      margin-bottom: 10px;
+    }
+
+    h2 {
+      font-size: 1.2em;
+      line-height: 1.5;
+    }
+
+    /* Carrusel */
+    .carousel {
+      position: relative;
+      width: 80%;
+      max-width: 700px;
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0px 4px 20px rgba(0,0,0,0.6);
+    }
+
+    .carousel img {
+      width: 100%;
+      display: none;
+      border-radius: 20px;
+    }
+
+    .carousel img.active {
+      display: block;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity: 0;}
+      to {opacity: 1;}
+    }
+
+    /* Botones del carrusel */
+    .carousel button {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: #ff4da6;
+      border: none;
+      border-radius: 50%;
+      padding: 15px;
+      cursor: pointer;
+      font-size: 20px;
+      color: white;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    .carousel button:hover {
+      background: #ff1a8c;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1) translateY(-50%); }
+      50% { transform: scale(1.2) translateY(-50%); }
+    }
+
+
+    /* Nuevo botón cute */
+    .btn-cute {
+    background-color: #ff4da6;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background 0.3s ease, transform 0.2s ease;
+    margin: 30px auto;
+    display: inline-block;
+    animation: heartbeat 1.5s infinite;
+    }
+
+    .btn-cute:hover {
+    background-color: #ff1a8c;
+    transform: scale(1.05);
+    }
+
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.7);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: white;
+      color: black;
+      padding: 30px;
+      border-radius: 20px;
+      max-width: 600px;
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.6;
+      position: relative;
+    }
+
+    .modal-content h3 {
+      font-family: 'Great Vibes', cursive;
+      color: #ff4da6;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+
+    .modal-content .firma {
+      font-family: 'Great Vibes', cursive;
+      color: #ff4da6;
+      font-size: 2em;
+      margin-top: 20px;
+    }
+
+    .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 25px;
+      cursor: pointer;
+      color: #333;
+    }
+
+    hr {
+      margin: 15px 0;
+      border: 0;
+      border-top: 2px solid #ff4da6;
+    }
+
+    /* Sección de recuerdos */
+.recuerdos-box {
+  background: rgba(0, 0, 0, 0.5);
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.recuerdos-titulo {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.8em;
+  font-weight: 600;
+  color: #ff4da6;
+  margin-bottom: 30px;
+}
+
+.recuerdo {
+  background-color: rgba(255, 255, 255, 0.08);
+  padding: 20px;
+  border-radius: 15px;
+  margin-bottom: 20px;
+  text-align: left;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.recuerdo h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.4em;
+  color: #ff4da6;
+  margin-bottom: 5px;
+}
+
+.recuerdo .fecha {
+  font-size: 0.95em;
+  color: #ccc;
+  margin-bottom: 10px;
+}
+
+.recuerdo p {
+  font-size: 1em;
+  line-height: 1.5;
+}
+
+/* Sección de tiempo */
+.tiempo-amor-box {
+  background: rgba(0, 0, 0, 0.5);
+  max-width: 900px;
+  margin: 50px auto;
+  padding: 40px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 77, 166, 0.4);
+}
+
+.tiempo-titulo {
+  font-family: 'Great Vibes', cursive;
+  color: #ff4da6;
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.contador-digital {
+  font-family: 'Poppins', monospace;
+  font-size: 2.5em;
+  color: #ffff66;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 15px 30px;
+  border-radius: 10px;
+  display: inline-block;
+  letter-spacing: 3px;
+  margin-bottom: 10px;
+  box-shadow: 0 0 15px #fffb88;
+}
+
+.tiempo-label {
+  font-style: italic;
+  color: #ddd;
+  font-size: 0.95em;
+  margin-bottom: 20px;
+}
+
+.tiempo-texto {
+  font-family: 'Poppins', serif;
+  font-size: 1em;
+  color: #fff;
+  max-width: 600px;
+  margin: 0 auto;
+}
+/* Sección Nuestro Amor */
+.nuestro-amor-box {
+  background: rgba(0, 0, 0, 0.5);
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 30px 20px;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 77, 166, 0.3);
+}
+
+.amor-titulo {
+  font-family: 'Poppins', sans-serif;
+  color: #ff4da6;
+  font-size: 1.8em;
+  margin-bottom: 20px;
+}
+
+/* Contenedor barra */
+.barra-contenedor {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 50px;
+  overflow: hidden;
+  width: 80%;
+  height: 20px;
+  margin: 0 auto 15px auto;
+}
+
+/* Barra animada */
+.barra-animada {
+  height: 100%;
+  width: 0%;
+  background-color: #ff4da6;
+  animation: llenarBarra 5s linear infinite;
+  border-radius: 50px;
+}
+
+@keyframes llenarBarra {
+  0% { width: 0%; }
+  100% { width: 100%; }
+}
+
+/* Texto debajo */
+.amor-sub {
+  font-style: italic;
+  color: #eee;
+  font-size: 1em;
+}
+
+/* Sección Firma */
+.firma-box {
+  background: rgba(0, 0, 0, 0.5);
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 25px 20px;
+  border-radius: 20px;
+  text-align: center;
+  color: #fff;
+}
+
+.firma-box p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1em;
+  margin-bottom: 15px;
+}
+
+.firma-nombre {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2em;
+  color: #ff4da6;
+  margin: 0;
+}
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Audio -->
+  <audio id="bg-music" src="perfect.mp3" autoplay loop></audio>
+
+  <!-- Secciones de texto -->
+  <div class="texto-box">
+    <h1>Para Mi Vida, Sol</h1>
+    <h2>"Tú eres mi hogar, mi refugio, mi amor por siempre."</h2>
+  </div>
+
+  <div class="texto-box">
+    <p>Mi vida, este día especial (ya sea nuestro aniversario o tu cumpleaños) es para celebrar el amor que compartimos.<br>
+    Esta sorpresa es para ti, porque eres mi mundo.</p>
+  </div>
+
+  <!-- Carrusel -->
+  <div class="carousel">
+    <button class="prev">&#10084;</button>
+    <img src="memory1.jpg" alt="Memory 1" class="active">
+    <img src="memory2.jpg" alt="Memory 2">
+    <img src="memory3.jpg" alt="Memory 3">
+    <button class="next">&#10084;</button>
+  </div>
+
+  <hr> <br>
+
+  <!-- Botón corazón -->
+<!-- Botón cute -->
+<button class="btn-cute" id="openCarta">💌 Lee mi carta</button>
+
+
+  <!-- Modal -->
+  <div class="modal" id="modalCarta">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <h3>Carta de Mi Corazón</h3>
+      <hr>
+      <p id="cartaTexto"></p>
+      <hr>
+      <p class="firma">Con todo mi amor, David</p>
+    </div>
+  </div>
+
+  <!-- Nuestros Recuerdos -->
+<div class="recuerdos-box">
+  <h2 class="recuerdos-titulo">Nuestros Recuerdos</h2>
+
+  <div class="recuerdo">
+    <h3>El Primer Encuentro</h3>
+    <p class="fecha">14 de Marzo, 2025</p>
+    <p>Ese día, mi corazón supo que había encontrado a su otra mitad.</p>
+  </div>
+
+  <div class="recuerdo">
+    <h3>Nuestra Canción</h3>
+    <p class="fecha">10 de Junio, 2023</p>
+    <p>Cada nota me recuerda a ti y a nuestros momentos juntos.</p>
+  </div>
+
+  <div class="recuerdo">
+    <h3>El Viaje Soñado</h3>
+    <p class="fecha">proximamente</p>
+    <p>Conocer todas las playas del país juntos.</p>
+  </div>
+</div>
+
+  <!-- Sección: Tiempo Desde Ser Novios -->
+<div class="tiempo-amor-box">
+  <h2 class="tiempo-titulo">Tiempo Desde Ser Novios</h2>
+  <div id="contador" class="contador-digital">000:00:00:00</div>
+  <p class="tiempo-label">Días : Horas : Min : Seg</p>
+  <p class="tiempo-texto">Desde que comenzó este momento especial, has sido lo más preciado en mi vida.</p>
+</div>
+  <div class="texto-box">
+    <h1>Nuestro Futuro</h1>
+    <h2>"Imagina los días que vendrán: viajes, risas, y un amor que crece cada día. Contigo, todo es posible."</h2>
+  </div>
+  <!-- Sección: Nuestro Amor -->
+<div class="nuestro-amor-box">
+  <h2 class="amor-titulo">Nuestro Amor</h2>
+  <div class="barra-contenedor">
+    <div class="barra-animada"></div>
+  </div>
+  <p class="amor-sub">100% Tuyo, siempre</p>
+</div>
+
+<!-- Sección: Firma -->
+<div class="firma-box">
+  <p>Hecho con todo mi corazón para la persona que ilumina mi mundo.</p>
+  <h3 class="firma-nombre">David</h3>
+</div>
+
+  <script>
+    // Reproducción forzada de audio (por bloqueo en móviles/navegadores)
+    window.addEventListener('DOMContentLoaded', () => {
+      const audio = document.getElementById('bg-music');
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          // Autoplay OK
+        }).catch(error => {
+          // Si falla autoplay, espera interacción
+          document.body.addEventListener('click', () => {
+            audio.play();
+          }, { once: true });
+        });
+      }
+    });
+
+    // Carrusel
+    let index = 0;
+    const images = document.querySelectorAll('.carousel img');
+    const prevBtn = document.querySelector('.prev');
+    const nextBtn = document.querySelector('.next');
+
+    function showImage(i) {
+      images.forEach((img, idx) => {
+        img.classList.remove('active');
+        if (idx === i) img.classList.add('active');
+      });
+    }
+
+    function nextImage() {
+      index = (index + 1) % images.length;
+      showImage(index);
+    }
+
+    function prevImage() {
+      index = (index - 1 + images.length) % images.length;
+      showImage(index);
+    }
+
+    nextBtn.addEventListener('click', nextImage);
+    prevBtn.addEventListener('click', prevImage);
+
+    setInterval(nextImage, 3500);
+
+    // Modal + máquina de escribir
+    const modal = document.getElementById('modalCarta');
+    const openBtn = document.getElementById('openCarta');
+    const closeBtn = document.getElementById('closeModal');
+    const cartaTexto = document.getElementById('cartaTexto');
+
+    const mensaje = "Mi amor, cada momento contigo es un tesoro. Desde el día que te conocí, supe que eras mi destino. Gracias por cada risa, cada abrazo, cada sueño compartido. Hoy celebramos nuestro amor, y prometo amarte hoy y siempre. Te amo mi becerrito";
+
+    openBtn.onclick = () => {
+      modal.style.display = 'flex';
+      cartaTexto.innerHTML = '';
+      let i = 0;
+      function typeWriter() {
+        if (i < mensaje.length) {
+          cartaTexto.innerHTML += mensaje.charAt(i);
+          i++;
+          setTimeout(typeWriter, 50);
+        }
+      }
+      typeWriter();
+    };
+
+    closeBtn.onclick = () => { modal.style.display = 'none'; };
+
+    window.onclick = (e) => {
+      if (e.target == modal) modal.style.display = 'none';
+    };
+
+    function actualizarContador() {
+    const fechaInicio = new Date('2025-08-10T00:00:00');
+    const ahora = new Date();
+    const diferencia = ahora - fechaInicio;
+
+    if (diferencia < 0) {
+      document.getElementById('contador').textContent = "000:00:00:00";
+      return;
+    }
+
+    const segundos = Math.floor(diferencia / 1000);
+    const dias = Math.floor(segundos / (3600 * 24));
+    const horas = Math.floor((segundos % (3600 * 24)) / 3600);
+    const minutos = Math.floor((segundos % 3600) / 60);
+    const seg = segundos % 60;
+
+    // Formato con ceros
+    const formato = `${String(dias).padStart(3, '0')}:${String(horas).padStart(2, '0')}:${String(minutos).padStart(2, '0')}:${String(seg).padStart(2, '0')}`;
+
+    document.getElementById('contador').textContent = formato;
+  }
+
+  // Actualizar cada segundo
+  setInterval(actualizarContador, 1000);
+  actualizarContador(); // inicial
+  </script>
+</body>
+</html>

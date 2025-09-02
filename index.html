@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feliz Mes, Mi Amor</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: url('fondo-montanas.jpg') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start; /* ahora empieza arriba */
+      height: 100vh;
+      color: white;
+      padding-top: 40px; /* baja el contenedor */
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      padding: 20px;
+      text-align: center;
+      width: clamp(300px, 90%, 1200px);
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      box-shadow: 0 0 20px rgba(255, 20, 147, 0.7);
+    }
+
+    h1 {
+      font-size: clamp(1.5rem, 5vw, 2.5rem);
+      color: #ff2d75;
+      margin: 10px 0 20px 0;
+    }
+
+    .cover {
+      width: 80%;   /* más pequeña */
+      max-width: 300px; /* límite más chico */
+      border-radius: 15px;
+      margin-bottom: 15px;
+    }
+
+    .input-display {
+      font-size: clamp(1.2rem, 5vw, 1.8rem);
+      letter-spacing: 8px;
+      margin: 15px 0;
+      height: 40px;
+      border-bottom: 2px solid #ff2d75;
+      text-align: center;
+      color: #ff2d75;
+    }
+
+    .hint {
+      font-size: clamp(0.7rem, 2vw, 1rem);
+      color: #ddd;
+      margin-bottom: 10px;
+    }
+
+    .keypad {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px; /* botones más pegados */
+      margin: 15px 0;
+    }
+
+    .key {
+      background: #ff2d75;
+      border: none;
+      border-radius: 50%;
+      width: clamp(60px, 15vw, 75px);
+      height: clamp(60px, 15vw, 75px);
+      font-size: clamp(1rem, 4vw, 1.4rem);
+      color: white;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .key:active {
+      transform: scale(0.9);
+      background: #ff5899;
+    }
+
+    .enter-btn {
+      width: 100%;
+      padding: clamp(10px, 3vw, 15px);
+      background: #ff2d75;
+      border: none;
+      border-radius: 10px;
+      color: white;
+      font-size: clamp(1rem, 3vw, 1.2rem);
+      cursor: pointer;
+      margin-top: 10px;
+      transition: 0.3s;
+    }
+
+    .enter-btn:hover {
+      background: #ff5899;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>¡Feliz Mes, Mi Amor!</h1>
+    <img src="portada.jpg" alt="Cover Image" class="cover">
+    
+    <p class="hint">Pista: Un día muy especial para nosotros, primer beso</p>
+    <div id="display" class="input-display"></div>
+
+    <div class="keypad">
+      <button class="key">1</button>
+      <button class="key">2</button>
+      <button class="key">3</button>
+      <button class="key">4</button>
+      <button class="key">5</button>
+      <button class="key">6</button>
+      <button class="key">7</button>
+      <button class="key">8</button>
+      <button class="key">9</button>
+      <button class="key">⌫</button>
+      <button class="key">0</button>
+      <button class="key">/</button>
+    </div>
+
+    <button class="enter-btn" onclick="checkPassword()">Entrar</button>
+  </div>
+
+  <script>
+    const display = document.getElementById("display");
+    let input = "";
+
+    document.querySelectorAll(".key").forEach(btn => {
+      btn.addEventListener("click", () => {
+        let val = btn.textContent;
+
+        if (val === "⌫") {
+          input = input.slice(0, -1); // Borrar último carácter
+        } else {
+          input += val;
+        }
+
+        // Mostrar corazones en lugar de texto
+        display.textContent = "❤".repeat(input.length);
+      });
+    });
+
+    function checkPassword() {
+      if (input === "22/06/25") {
+        window.location.href = "pagina_sorpresa.html"; 
+      } else {
+        alert("Contraseña incorrecta 💔");
+        input = "";
+        display.textContent = "";
+      }
+    }
+  </script>
+</body>
+</html>
